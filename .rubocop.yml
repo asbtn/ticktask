@@ -64,3 +64,51 @@ Lint/MissingSuper:
 
 Rails/I18nLocaleTexts:
   Enabled: false
+
+Layout/ClassStructure:
+  Enabled: true
+  Categories:
+    module_inclusion:
+      - include
+      - extend
+      - prepend
+    constants:
+      - const
+    public_attribute_macros:
+      - attr_reader
+      - attr_writer
+      - attr_accessor
+    association:
+      - belongs_to
+      - has_many
+      - has_one
+      - has_and_belongs_to_many
+    macros:
+      - validates
+      - validate
+      - scope
+      - before_validation
+      - before_save
+      - before_create
+      - before_destroy
+      - after_validation
+      - after_save
+      - after_create
+      - after_destroy
+      - around_save
+      - around_create
+    public_class_methods:
+      - 'def self.'
+    initializer:
+      - initialize
+    public_methods:
+      - def
+  ExpectedOrder:
+    - module_inclusion
+    - constants
+    - public_attribute_macros
+    - association
+    - macros
+    - public_class_methods
+    - initializer
+    - public_methods
