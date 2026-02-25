@@ -1,0 +1,14 @@
+<div class="mx-auto p-8 max-w-4xl container">
+  <%= render "form" %>
+
+  <div class="space-y-4">
+    <% if @tasks.any? %>
+      <%= render @tasks %>
+    <% else %>
+      <div class="opacity-50 py-12 text-center">
+        <p class="text-xl">No tasks yet</p>
+        <p>Add one above to get started!</p>
+      </div>
+    <% end %>
+  </div>
+</div>

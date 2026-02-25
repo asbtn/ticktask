@@ -1,0 +1,41 @@
+<header
+  class="
+    top-0 z-50 sticky bg-primary shadow-md backdrop-blur border-base-200 w-full h-14
+    navbar
+  "
+>
+  <div class="gap-2 mx-auto max-w-152 text-neutral-content navbar-center">
+    <%= link_to tasks_path, class: "btn btn-ghost gap-2 px-3 h-10 #{active_class_today? ? 'bg-neutral text-neutral-content' : ''}" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+        />
+      </svg>
+      <span>Today</span>
+    <% end %>
+
+    <%= link_to tasks_path, class: "btn btn-ghost gap-1 px-3 h-10 font-medium hover:bg-accent #{active_class_tomorrow? ? 'bg-accent text-accent-content' : ''}" do %>
+      <span class="font-semibold text-sm">Tomorrow</span>
+    <% end %>
+    <!-- Up Next Button -->
+    <%= link_to tasks_path, class: "btn btn-ghost gap-1 px-3 h-10 font-medium hover:bg-accent #{active_class_up_next? ? 'bg-accent text-accent-content' : ''}" do %>
+      <span class="font-semibold text-sm">Up Next</span>
+    <% end %>
+  </div>
+</header>
+
+<script>
+  // Add this to your layout or app.js for theme toggle (adapt to your Rails setup)
+  function toggleTheme() {
+    if (localStorage.theme === 'dark' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.remove('dark')
+      localStorage.theme = 'light'
+    } else {
+      document.documentElement.classList.add('dark')
+      localStorage.theme = 'dark'
+    }
+  }
+</script>
