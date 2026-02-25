@@ -9,6 +9,26 @@ services:
       - .:/rails
     environment:
       - RAILS_ENV=development
+    command: bin/rails server -p 3000 -b 0.0.0.0
+    depends_on:
+      - db
+    restart: "unless-stopped"
+
+  css:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/rails
+    environment:
+      - RAILS_ENV=development
+    command: bin/rails tailwindcss:watch
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    restart: "unless-stopped"
+
   db:
     image: postgres:16
     environment:
