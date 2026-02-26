@@ -1,52 +1,68 @@
-<div class="mx-auto w-full md:w-2/3">
+<div class="mx-auto p-8 w-full max-w-md">
   <% if alert = flash[:alert] %>
-    <p
-      class="
-        inline-block bg-red-50 mb-5 px-3 py-2 rounded-lg font-medium text-red-500
-      "
-      id="alert"
-    ><%= alert %></p>
+    <div role="alert" class="shadow-lg mb-6 alert alert-error" id="alert">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="stroke-current w-6 h-6 shrink-0"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 14L12 12m0 0l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span><%= alert %></span>
+    </div>
   <% end %>
 
   <% if notice = flash[:notice] %>
-    <p
-      class="
-        inline-block bg-green-50 mb-5 px-3 py-2 rounded-lg font-medium text-green-500
-      "
-      id="notice"
-    ><%= notice %></p>
+    <div role="alert" class="shadow-lg mb-6 alert alert-success" id="notice">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="stroke-current w-6 h-6 shrink-0"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span><%= notice %></span>
+    </div>
   <% end %>
 
-  <h1 class="font-bold text-4xl">Sign in</h1>
+  <h1 class="mb-8 font-bold text-4xl text-center">Sign in</h1>
 
-  <%= form_with url: session_url, class: "contents" do |form| %>
-    <div class="my-5">
+  <%= form_with url: session_url, class: "space-y-6" do |form| %>
+    <div class="form-control">
+      <%= form.label :email_address, "Email address", class: "label" %>
       <%= form.email_field :email_address,
                        required: true,
                        autofocus: true,
                        autocomplete: "username",
                        placeholder: "Enter your email address",
                        value: params[:email_address],
-                       class:
-                         "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+                       class: "input input-bordered w-full" %>
     </div>
 
-    <div class="my-5">
+    <div class="form-control">
+      <%= form.label :password, "Password", class: "label" %>
       <%= form.password_field :password,
                           required: true,
                           autocomplete: "current-password",
                           placeholder: "Enter your password",
                           maxlength: 72,
-                          class:
-                            "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+                          class: "input input-bordered w-full" %>
     </div>
 
-    <div class="sm:flex sm:items-center sm:gap-4 col-span-6">
-      <div class="inline">
-        <%= form.submit "Sign in",
-                    class:
-                      "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-      </div>
+    <div class="pt-6 form-control">
+      <%= form.submit "Sign in", class: "btn btn-primary w-full" %>
     </div>
   <% end %>
 </div>

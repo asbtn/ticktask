@@ -23,12 +23,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-base-100 antialiased">
+  <body class="bg-base-200 antialiased">
     <div class="flex flex-col w-full min-h-dvh">
-      <%= render "shared/navbar" %>
-      <main
-        class="relative flex-1 bg-primary-content mx-auto -mt-1 p-4 sm:p-6 w-full max-w-175"
-      >
+      <main class="relative flex-1 mx-auto -mt-1 p-4 sm:p-6 w-full max-w-175">
         <%= yield %>
       </main>
     </div>

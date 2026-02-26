@@ -2,17 +2,14 @@
   <div class="p-4 card-body">
     <%= form_with model: [@user, Task.new], local: true, class: "space-y-3" do |form| %>
       <div class="flex flex-row items-center gap-3">
-        <%= form.check_box :completed,
-                       class: "checkbox checkbox-primary flex-shrink-0",
-                       data: {
-                         action: "change->task#toggleCompleted",
-                       } %>
-        <%= form.text_field :title,
+        <%= form.text_field :description,
                         placeholder: "Task title",
                         class: "input input-bordered flex-1 min-w-0",
                         required: true %>
-        <%= form.datetime_local_field :due_at,
-                                  class: "input input-bordered w-50 flex-shrink-0" %>
+        <%= form.submit "+",
+                    class:
+                      "btn btn-circle btn-primary btn-sm flex-shrink-0 h-10 w-10 p-0",
+                    title: "Add task" %>
       </div>
     <% end %>
   </div>

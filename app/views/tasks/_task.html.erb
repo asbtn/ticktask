@@ -1,41 +1,42 @@
 <div
-  class="
-    card bg-base-100 shadow-xl compact <%= task.completed? ? 'border-success border-2' : '' %>
-  "
+  id="<%= dom_id(task) %>"
+  class="card bg-base-100 compact <%= task.completed? ? 'border-success border-1' : '' %>"
+  data-controller="task"
+  data-task-update-url="<%= task_path(task) %>"
 >
   <div class="card-body">
-    <div class="flex justify-between items-start">
-      <h3 class="card-title <%= task.completed? ? 'line-through opacity-60' : '' %>">
-        <%= task.title %>
-      </h3>
-      <div class="flex gap-1">
-        <%= link_to edit_task_path(task), class: "btn btn-xs btn-warning" do %>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-            ></path></svg>
-        <% end %>
-        <%= button_to task_path(task), method: :delete, form: { data: { turbo_confirm: 'Delete this task?' } }, class: "btn btn-xs btn-error" do %>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path
+    <div class="flex justify-between items-center">
+      <%= form_with model: task, local: true, class: "flex items-center gap-3 flex-1" do |f| %>
+        <%= f.check_box :completed,
+                    class:
+                      "checkbox checkbox-xs #{task.completed? ? "checkbox-success" : ""}",
+                    data: {
+                      turbo: true,
+                    },
+                    onchange: "this.form.requestSubmit()" %>
+        <h3
+          class="
+            card-title text-sm cursor-text <%= task.completed? ? 'line-through opacity-60' : '' %> flex-1 m-0
+          "
+          data-task-target="title"
+        >
+          <%= task.description %>
+        </h3>
+      <% end %>
+      <div class="justify-end card-actions">
+        <%= button_to task_path(task), method: :delete, form: { data: { turbo_confirm: 'Delete this task?' } }, class: "btn btn-xs opacity-25 btn-error hover:opacity-100 transition-opacity duration-300" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-            ></path></svg>
+            ></path>
+          </svg>
+
         <% end %>
       </div>
     </div>
-
-    <% if task.description.present? %>
-      <p class="opacity-80 text-sm"><%= simple_format(task.description) %></p>
-    <% end %>
-
-    <% if task.due_date %>
-      <div class="text-xs badge badge-info">
-        <%= time_tag task.due_date, format: "%b %d, %Y %I:%M %p" %>
-      </div>
-    <% end %>
   </div>
+
 </div>
