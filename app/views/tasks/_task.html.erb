@@ -18,7 +18,7 @@
         <div class="relative flex-1" data-task-target="titleContainer">
           <h3
             class="
-              card-title text-sm cursor-text <%= task.completed? ? 'line-through opacity-60' : '' %> flex-1 m-0
+              card-title text-sm cursor-text <%= task.completed? ? 'line-through opacity-60 italic' : '' %> flex-1 m-0
             "
             data-task-target="titleDisplay"
             data-action="click->task#enterEdit"
@@ -34,7 +34,7 @@
         </div>
       <% end %>
       <div class="justify-end card-actions">
-        <%= button_to task_path(task), method: :delete, form: { data: { turbo_confirm: 'Delete this task?' } }, class: "btn btn-xs opacity-25 btn-error hover:opacity-100 transition-opacity duration-300" do %>
+        <%= button_to task_path(task), method: :delete, form: { data: { turbo_confirm: 'Delete this task?' } }, class: "btn btn-xs opacity-25 btn-transparent hover:opacity-100 transition-opacity duration-300" do %>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"
