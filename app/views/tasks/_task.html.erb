@@ -1,27 +1,37 @@
 <div
   id="<%= dom_id(task) %>"
-  class="card bg-base-100 compact <%= task.completed? ? 'border-success border-1' : '' %>"
+  class="bg-base-100 card compact"
   data-controller="task"
   data-task-update-url="<%= task_path(task) %>"
 >
   <div class="card-body">
     <div class="flex justify-between items-center">
-      <%= form_with model: task, local: true, class: "flex items-center gap-3 flex-1" do |f| %>
+      <%= form_with model: task,
+                    url: task_path(task),
+                    local: true,
+                    class: "flex items-center gap-3 flex-1",
+                    data: { task_target: "form" } do |f| %>
         <%= f.check_box :completed,
                     class:
                       "checkbox checkbox-xs #{task.completed? ? "checkbox-success" : ""}",
-                    data: {
-                      turbo: true,
-                    },
                     onchange: "this.form.requestSubmit()" %>
-        <h3
-          class="
-            card-title text-sm cursor-text <%= task.completed? ? 'line-through opacity-60' : '' %> flex-1 m-0
-          "
-          data-task-target="title"
-        >
-          <%= task.description %>
-        </h3>
+        <div class="relative flex-1" data-task-target="titleContainer">
+          <h3
+            class="
+              card-title text-sm cursor-text <%= task.completed? ? 'line-through opacity-60' : '' %> flex-1 m-0
+            "
+            data-task-target="titleDisplay"
+            data-action="click->task#enterEdit"
+          ><%= task.description %></h3>
+          <%= f.text_field :description,
+                       class:
+                         "input input-xs text-sm hidden border-none outline-none px-0",
+                       data: {
+                         task_target: "titleInput",
+                         action:
+                           "keydown.enter->task#saveEdit  keydown.esc->task#cancelEdit",
+                       } %>
+        </div>
       <% end %>
       <div class="justify-end card-actions">
         <%= button_to task_path(task), method: :delete, form: { data: { turbo_confirm: 'Delete this task?' } }, class: "btn btn-xs opacity-25 btn-error hover:opacity-100 transition-opacity duration-300" do %>
@@ -33,10 +43,8 @@
               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
             ></path>
           </svg>
-
         <% end %>
       </div>
     </div>
   </div>
-
 </div>
