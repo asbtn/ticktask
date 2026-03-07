@@ -4,16 +4,15 @@ export default class extends Controller {
   static targets = ["titleDisplay", "titleInput", "titleContainer", "form"]
 
   enterEdit() {
-    debugger
     this.titleDisplayTarget.classList.add("hidden")
     this.titleInputTarget.classList.remove("hidden")
+    this.element.classList.remove("border-transparent")
     this.titleInputTarget.focus()
     this.titleInputTarget.value = this.titleDisplayTarget.textContent
     this.titleInputTarget.select()
   }
 
   saveEdit(event) {
-    debugger
     event.preventDefault()
 
     if (!this.hasFormTarget) return
@@ -28,6 +27,7 @@ export default class extends Controller {
   exitEdit() {
     this.titleInputTarget.classList.add("hidden")
     this.titleDisplayTarget.classList.remove("hidden")
+    this.element.classList.add("border-transparent")
   }
 
 

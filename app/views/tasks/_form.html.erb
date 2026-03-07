@@ -4,11 +4,11 @@
       <div class="flex flex-row items-center gap-3">
         <%= form.text_field :description,
                         placeholder: "Task title",
-                        class: "input input-bordered flex-1 min-w-0",
+                        class: "input input-bordered flex-1 min-w-0 outline-none",
                         required: true %>
         <%= form.submit "+",
                     class:
-                      "btn btn-circle btn-secondary btn-sm flex-shrink-0 h-10 w-10 p-0 shadow-sm",
+                      "btn btn-circle btn-primary text-primary-content hover:bg-accent hover:text-accent-content border-none btn-sm flex-shrink-0 h-10 w-10 p-0 shadow-sm",
                     title: "Add task" %>
       </div>
     <% end %>

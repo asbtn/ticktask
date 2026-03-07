@@ -1,6 +1,6 @@
 <div
   id="<%= dom_id(task) %>"
-  class="bg-base-100 card compact"
+  class="bg-base-100 border border-transparent card compact"
   data-controller="task"
   data-task-update-url="<%= task_path(task) %>"
 >
@@ -13,24 +13,26 @@
                     data: { task_target: "form" } do |f| %>
         <%= f.check_box :completed,
                     class:
-                      "checkbox checkbox-xs #{task.completed? ? "checkbox-success" : ""}",
+                      "checkbox checkbox-xs #{task.completed? ? "checkbox-accent " : ""}",
                     onchange: "this.form.requestSubmit()" %>
         <div class="relative flex-1" data-task-target="titleContainer">
           <h3
             class="
-              card-title text-sm cursor-text <%= task.completed? ? 'line-through opacity-60 italic' : '' %> flex-1 m-0
+              card-title text-sm cursor-text <%= task.completed? ? 'line-through opacity-60 italic' : '' %> m-0 w-full
             "
             data-task-target="titleDisplay"
-            data-action="click->task#enterEdit"
+            data-action="<%= task.completed? ? '' : 'click->task#enterEdit' %>"
           ><%= task.description %></h3>
-          <%= f.text_field :description,
-                       class:
-                         "input input-xs text-sm hidden border-none outline-none px-0",
-                       data: {
-                         task_target: "titleInput",
-                         action:
-                           "keydown.enter->task#saveEdit  keydown.esc->task#cancelEdit",
-                       } %>
+          <% unless task.completed? %>
+            <%= f.text_field :description,
+                         class:
+                           "input input-xs text-sm hidden border-none outline-none px-0",
+                         data: {
+                           task_target: "titleInput",
+                           action:
+                             "keydown.enter->task#saveEdit  keydown.esc->task#cancelEdit blur->task#saveEdit",
+                         } %>
+          <% end %>
         </div>
       <% end %>
       <div class="justify-end card-actions">
