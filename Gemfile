@@ -53,7 +53,7 @@ group :development, :test do
   gem "brakeman", require: false
 
   # Rubocop linter
-  gem "rubocop", "~> 1.84"
+  gem "rubocop", "~> 1.85"
 
   gem "rubocop-rails", "~> 2.34"
 end
